@@ -26,7 +26,7 @@ public class FranchiseController {
 
     @PostMapping("/")
     public ResponseEntity<String> create(@RequestBody FranchiseDTO body) {
-        return ResponseEntity.ok().body("ok");
+        return ResponseEntity.status(201).body("TODO");
     }
 
     @PutMapping("/")

@@ -10,11 +10,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(path = "movie") // Base URL
 public class MovieController {
-    private final FranchiseService service;
-
-    public MovieController(FranchiseService service) {
-        this.service = service;
-    }
 
     @GetMapping("{id}")
     public ResponseEntity<String> getById(@PathVariable int id) {
