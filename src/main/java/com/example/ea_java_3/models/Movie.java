@@ -22,7 +22,12 @@ public class Movie {
     @JoinColumn(name = "franchise_id")
     private Franchise franchise;
 
-    @ManyToMany(mappedBy = "movies")
+    @ManyToMany
+    @JoinTable(
+            name = "character_movie",
+            joinColumns = {@JoinColumn(name = "movie_id")},
+            inverseJoinColumns = {@JoinColumn(name = "character_id")}
+    )
     private Set<Character> characters;
 
     public int getId() {
