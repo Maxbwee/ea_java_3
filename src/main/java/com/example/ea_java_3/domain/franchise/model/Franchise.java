@@ -1,5 +1,6 @@
-package com.example.ea_java_3.models;
+package com.example.ea_java_3.domain.franchise.model;
 
+import com.example.ea_java_3.domain.movie.model.Movie;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -17,4 +18,16 @@ public class Franchise {
 
     @OneToMany(mappedBy = "franchise")
     private Set<Movie> movies;
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Set<Movie> getMovies() {
+        return movies;
+    }
 }

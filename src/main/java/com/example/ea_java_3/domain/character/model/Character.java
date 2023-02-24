@@ -1,5 +1,6 @@
-package com.example.ea_java_3.models;
+package com.example.ea_java_3.domain.character.model;
 
+import com.example.ea_java_3.domain.movie.model.Movie;
 import jakarta.persistence.*;
 
 import java.util.Set;
