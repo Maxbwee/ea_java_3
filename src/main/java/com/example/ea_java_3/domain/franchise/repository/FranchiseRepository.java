@@ -1,4 +1,4 @@
-package com.example.ea_java_3.domain.franchise;
+package com.example.ea_java_3.domain.franchise.repository;
 
 import com.example.ea_java_3.domain.franchise.model.Franchise;
 import org.springframework.data.jpa.repository.JpaRepository;

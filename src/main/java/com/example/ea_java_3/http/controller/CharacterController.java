@@ -1,14 +1,19 @@
 package com.example.ea_java_3.http.controller;
 
 import com.example.ea_java_3.domain.character.model.CharacterDTO;
-import com.example.ea_java_3.domain.franchise.FranchiseService;
-import com.example.ea_java_3.domain.franchise.model.FranchiseDTO;
+import com.example.ea_java_3.domain.character.service.CharacterService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "character") // Base URL
 public class CharacterController {
+    
+    private final CharacterService service;
+
+    public CharacterController(CharacterService service) {
+        this.service = service;
+    }
 
     @GetMapping("{id}")
     public ResponseEntity<String> getById(@PathVariable int id) {

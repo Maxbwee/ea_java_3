@@ -1,8 +1,6 @@
 package com.example.ea_java_3.http.controller;
 
 
-import com.example.ea_java_3.domain.franchise.FranchiseService;
-import com.example.ea_java_3.domain.franchise.model.FranchiseDTO;
 import com.example.ea_java_3.domain.movie.model.MovieDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +16,16 @@ public class MovieController {
 
     @GetMapping("/")
     public ResponseEntity<String> getAll() {
+        return ResponseEntity.ok().body("ok");
+    }
+
+    @GetMapping("{id}/characters")
+    public ResponseEntity<String> getMovieCharacters(@PathVariable String id) {
+        return ResponseEntity.ok().body("ok");
+    }
+
+    @PutMapping("{id}/characters")
+    public ResponseEntity<String> updateMovieCharacters(@PathVariable String id) {
         return ResponseEntity.ok().body("ok");
     }
 
