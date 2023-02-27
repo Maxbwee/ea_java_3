@@ -10,7 +10,6 @@ public interface CharacterRepository extends JpaRepository<Character, Integer> {
 
     Set<Character> findAllByName(String name);
     Optional<Character> findCharacterByMovies(String title);
-
     Optional<Character> findCharacterById(int id);
     Optional<Character> findCharacterByName(String name);
     Optional<Character> deleteCharacterById(int id);

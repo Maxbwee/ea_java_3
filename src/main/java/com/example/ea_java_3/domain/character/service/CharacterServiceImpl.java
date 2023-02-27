@@ -25,12 +25,8 @@ public class CharacterServiceImpl implements CharacterService {
     private final Logger logger = LoggerFactory.getLogger(CharacterServiceImpl.class);
 
     public CharacterServiceImpl(CharacterRepository characterRepo) {
-        this.characterRepo = characterRepo;
-    }
 
-    @Override
-    public Collection<Character> findAllByName(String name) {
-        return characterRepo.findAllByName(name);
+        this.characterRepo = characterRepo;
     }
 
     @Override
@@ -47,12 +43,13 @@ public class CharacterServiceImpl implements CharacterService {
 
     @Override
     public List<Character> getAll() {
-        return null;
+        return characterRepo.findAll();
     }
 
     @Override
-    public Character deleteById(int id) {
-        return null;
+    public void deleteById(int id) {
+
+       characterRepo.deleteById(id);
     }
 
     @Override

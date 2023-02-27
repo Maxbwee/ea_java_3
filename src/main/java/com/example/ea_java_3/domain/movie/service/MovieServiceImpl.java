@@ -30,16 +30,22 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<Movie> getAll() {
-        return null;
+
+        return movieRepo.findAll();
     }
 
     @Override
-    public Movie deleteById(int id) {
-        return null;
+    public void deleteById(int id) {
+        movieRepo.deleteById(id);
     }
 
     @Override
     public Movie update(Integer dto) {
+        return null;
+    }
+
+    @Override
+    public List<Character> getMovieCharacters(int id) {
         return null;
     }
 }

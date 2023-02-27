@@ -2,6 +2,8 @@ package com.example.ea_java_3.http.controller;
 
 import com.example.ea_java_3.domain.character.model.CharacterDTO;
 import com.example.ea_java_3.domain.character.service.CharacterService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,7 @@ public class CharacterController {
         this.service = service;
     }
 
+    @Operation(summary = "Get all characters by Id")
     @GetMapping("{id}")
     public ResponseEntity<String> getById(@PathVariable int id) {
         return ResponseEntity.ok().body("ok");

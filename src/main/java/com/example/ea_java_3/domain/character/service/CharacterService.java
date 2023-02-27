@@ -14,6 +14,6 @@ import java.util.Optional;
  */
 public interface CharacterService extends CrudService<Character, CharacterDTO> {
 
-    Collection<Character> findAllByName(String name);
+
 
 }

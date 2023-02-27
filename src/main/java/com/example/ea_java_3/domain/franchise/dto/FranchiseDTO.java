@@ -1,4 +1,4 @@
-package com.example.ea_java_3.domain.franchise.model;
+package com.example.ea_java_3.domain.franchise.dto;
 
 import lombok.Getter;
 import lombok.Setter;
