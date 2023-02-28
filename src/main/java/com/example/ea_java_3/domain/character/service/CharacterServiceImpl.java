@@ -1,7 +1,7 @@
 package com.example.ea_java_3.domain.character.service;
 
 import com.example.ea_java_3.domain.character.model.Character;
-import com.example.ea_java_3.domain.character.model.CharacterDTO;
+import com.example.ea_java_3.domain.character.dto.CharacterDTO;
 import com.example.ea_java_3.domain.character.repository.CharacterRepository;
 import com.example.ea_java_3.exceptions.CharacterNotFoundException;
 import org.slf4j.Logger;
@@ -9,9 +9,8 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 /**
  * Implementation of the characterService
@@ -55,5 +54,10 @@ public class CharacterServiceImpl implements CharacterService {
     @Override
     public Character update(CharacterDTO dto) {
         return null;
+    }
+
+    @Override
+    public List<Character> getCharactersByFranchiseId(int id) {
+        return characterRepo.findAllByFranchiseId(id);
     }
 }

@@ -1,5 +1,7 @@
 package com.example.ea_java_3.domain.franchise.service;
 
+import com.example.ea_java_3.domain.character.model.Character;
+import com.example.ea_java_3.domain.character.repository.CharacterRepository;
 import com.example.ea_java_3.domain.franchise.dto.FranchiseMapper;
 import com.example.ea_java_3.domain.franchise.model.Franchise;
 import com.example.ea_java_3.domain.franchise.dto.FranchiseDTO;
@@ -7,8 +9,6 @@ import com.example.ea_java_3.domain.franchise.repository.FranchiseRepository;
 import com.example.ea_java_3.domain.movie.model.Movie;
 import com.example.ea_java_3.domain.movie.repository.MovieRepository;
 import com.example.ea_java_3.exceptions.FranchiseNotFoundException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,13 +18,19 @@ public class FranchiseServiceImpl implements FranchiseService {
 
     private final FranchiseRepository franchiseRepository;
     private final MovieRepository movieRepository;
-    private final Logger logger = LoggerFactory.getLogger(FranchiseServiceImpl.class);
+    private final CharacterRepository charRepository;
     private final FranchiseMapper mapper;
 
-    public FranchiseServiceImpl(FranchiseRepository franchiseRepo, FranchiseMapper mapper, MovieRepository movieRepository) {
-        this.franchiseRepository = franchiseRepo;
+    public FranchiseServiceImpl(
+            FranchiseMapper mapper,
+            FranchiseRepository franchiseRepo,
+            MovieRepository movieRepo,
+            CharacterRepository charRepo
+    ) {
         this.mapper = mapper;
-        this.movieRepository = movieRepository;
+        this.franchiseRepository = franchiseRepo;
+        this.movieRepository = movieRepo;
+        this.charRepository = charRepo;
     }
 
     @Override
@@ -36,7 +42,7 @@ public class FranchiseServiceImpl implements FranchiseService {
 
     @Override
     public Franchise getById(int id) {
-        return franchiseRepository.findFranchiseById(id)
+        return franchiseRepository.findById(id)
                 .orElseThrow(() -> new FranchiseNotFoundException(id));
     }
 
@@ -52,7 +58,7 @@ public class FranchiseServiceImpl implements FranchiseService {
 
     @Override
     public List<Character> getFranchiseCharacters(int id) {
-        return null;
+        return charRepository.findAllByFranchiseId(id);
     }
 
     @Override
@@ -62,6 +68,7 @@ public class FranchiseServiceImpl implements FranchiseService {
 
     @Override
     public Franchise update(FranchiseDTO dto) {
+
         return null;
     }
 }

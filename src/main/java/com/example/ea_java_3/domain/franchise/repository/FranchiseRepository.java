@@ -8,8 +8,4 @@ import java.util.Optional;
 
 
 @Repository
-public interface FranchiseRepository extends JpaRepository<Franchise, Integer> {
-    Optional<Franchise> findFranchiseById(int id);
-
-    Optional<Franchise> deleteFranchiseById(int id);
-}
+public interface FranchiseRepository extends JpaRepository<Franchise, Integer> { }
