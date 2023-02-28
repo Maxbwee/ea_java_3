@@ -1,42 +1,38 @@
 package com.example.ea_java_3.domain.character.service;
 
+import com.example.ea_java_3.domain.character.dto.CharacterMapper;
 import com.example.ea_java_3.domain.character.model.Character;
 import com.example.ea_java_3.domain.character.dto.CharacterDTO;
 import com.example.ea_java_3.domain.character.repository.CharacterRepository;
 import com.example.ea_java_3.exceptions.CharacterNotFoundException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Implementation of the characterService
  * Uses the character repository to interact with the data
- * Logger is used to log errors
  */
 @Service
 public class CharacterServiceImpl implements CharacterService {
 
     private final CharacterRepository characterRepo;
-    private final Logger logger = LoggerFactory.getLogger(CharacterServiceImpl.class);
+    private final CharacterMapper mapper;
 
-    public CharacterServiceImpl(CharacterRepository characterRepo) {
-
+    public CharacterServiceImpl(CharacterRepository characterRepo, CharacterMapper mapper) {
         this.characterRepo = characterRepo;
+        this.mapper = mapper;
     }
 
     @Override
     public Character create(CharacterDTO dto) {
-        // Transform object??
-        return null;
+        return characterRepo.save(mapper.toCharacter(dto));
     }
 
     @Override
     public Character getById(int id) {
-        return characterRepo.findCharacterById(id)
+        return characterRepo.findById(id)
                 .orElseThrow(() -> new CharacterNotFoundException(id));
     }
 
@@ -47,17 +43,11 @@ public class CharacterServiceImpl implements CharacterService {
 
     @Override
     public void deleteById(int id) {
-
        characterRepo.deleteById(id);
     }
 
     @Override
     public Character update(CharacterDTO dto) {
-        return null;
-    }
-
-    @Override
-    public List<Character> getCharactersByFranchiseId(int id) {
-        return characterRepo.findAllByFranchiseId(id);
+        return characterRepo.save(mapper.toCharacter(dto));
     }
 }

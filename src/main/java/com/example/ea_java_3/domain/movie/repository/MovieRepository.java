@@ -10,8 +10,8 @@ import java.util.Optional;
 
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
-    Optional<Movie> findMovieById(int id);
-
-    @Query(value = "SELECT id FROM Movie")
+    @Query(value = "SELECT movie.id, movie.title, movie.genre, movie.release_year,movie.director,movie.picture,movie.trailer, movie.franchise_id FROM movie " +
+            "LEFT JOIN franchise on franchise.id = movie.franchise_id " +
+            "WHERE franchise.id = ?", nativeQuery = true)
     List<Movie> findAllByFranchiseId(int id);
 }

@@ -1,4 +1,4 @@
-package com.example.ea_java_3.domain.movie.model;
+package com.example.ea_java_3.domain.movie.dto;
 
 import lombok.Data;
 

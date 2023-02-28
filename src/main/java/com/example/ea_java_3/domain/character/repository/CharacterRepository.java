@@ -9,12 +9,15 @@ import java.util.Optional;
 import java.util.Set;
 
 public interface CharacterRepository extends JpaRepository<Character, Integer> {
-    List<Character> findAllByName(String name);
-    Optional<Character> findCharacterById(int id);
-    Optional<Character> findCharacterByName(String name);
-    Optional<Character> deleteCharacterById(int id);
-
-//    @Query("select s from Character s where s.id like %?1%");
-    @Query("SELECT id FROM Character")
+    @Query(
+            value="SELECT character.id, character.name, character.alias, character.gender, character.picture FROM character " +
+            "LEFT JOIN character_movie ON character_movie.character_id=character.id " +
+            "LEFT JOIN movie ON character_movie.movie_id=movie.id " +
+            "WHERE movie.franchise_id = ?", nativeQuery = true)
     List<Character> findAllByFranchiseId(int id);
+
+    @Query(value="SELECT character.id, character.name, character.alias, character.gender, character.picture FROM character " +
+            "LEFT JOIN character_movie ON character_movie.character_id=character.id " +
+            "WHERE character_movie.movie_id = 1", nativeQuery = true)
+    List<Character> findAllByMovieId(int id);
 }

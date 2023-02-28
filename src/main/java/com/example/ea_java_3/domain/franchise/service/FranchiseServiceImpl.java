@@ -35,9 +35,7 @@ public class FranchiseServiceImpl implements FranchiseService {
 
     @Override
     public Franchise create(FranchiseDTO dto) {
-        Franchise obj = mapper.toFranchise(dto);
-        // TODO Id null required?
-        return franchiseRepository.save(obj);
+        return franchiseRepository.save(mapper.toFranchise(dto));
     }
 
     @Override
@@ -68,7 +66,6 @@ public class FranchiseServiceImpl implements FranchiseService {
 
     @Override
     public Franchise update(FranchiseDTO dto) {
-
-        return null;
+        return franchiseRepository.save(mapper.toFranchise(dto));
     }
 }

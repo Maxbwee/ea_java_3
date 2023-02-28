@@ -9,6 +9,4 @@ import java.util.List;
 /**
  *
  */
-public interface CharacterService extends CrudService<Character, CharacterDTO> {
-    List<Character> getCharactersByFranchiseId(int id);
-}
+public interface CharacterService extends CrudService<Character, CharacterDTO> {}
