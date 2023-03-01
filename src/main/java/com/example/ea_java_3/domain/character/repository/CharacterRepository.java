@@ -18,6 +18,8 @@ public interface CharacterRepository extends JpaRepository<Character, Integer> {
 
     @Query(value="SELECT character.id, character.name, character.alias, character.gender, character.picture FROM character " +
             "LEFT JOIN character_movie ON character_movie.character_id=character.id " +
-            "WHERE character_movie.movie_id = 1", nativeQuery = true)
+            "WHERE character_movie.movie_id = ?", nativeQuery = true)
     List<Character> findAllByMovieId(int id);
+
+    Character findCharacterById(int id);
 }

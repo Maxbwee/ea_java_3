@@ -4,11 +4,14 @@ import com.example.ea_java_3.domain.character.dto.CharacterMapper;
 import com.example.ea_java_3.domain.character.model.Character;
 import com.example.ea_java_3.domain.character.dto.CharacterDTO;
 import com.example.ea_java_3.domain.character.repository.CharacterRepository;
-import com.example.ea_java_3.exceptions.CharacterNotFoundException;
+import com.example.ea_java_3.domain.movie.model.Movie;
+import com.example.ea_java_3.domain.movie.repository.MovieRepository;
 
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Implementation of the characterService
@@ -18,11 +21,13 @@ import java.util.List;
 public class CharacterServiceImpl implements CharacterService {
 
     private final CharacterRepository characterRepo;
+    private final MovieRepository movieRepository;
     private final CharacterMapper mapper;
 
-    public CharacterServiceImpl(CharacterRepository characterRepo, CharacterMapper mapper) {
+    public CharacterServiceImpl(CharacterRepository characterRepo, MovieRepository movieRepository, CharacterMapper mapper) {
         this.characterRepo = characterRepo;
         this.mapper = mapper;
+        this.movieRepository = movieRepository;
     }
 
     @Override
@@ -32,8 +37,11 @@ public class CharacterServiceImpl implements CharacterService {
 
     @Override
     public Character getById(int id) {
-        return characterRepo.findById(id)
-                .orElseThrow(() -> new CharacterNotFoundException(id));
+        Character ch = characterRepo.findCharacterById(id);
+        Set<Movie> movies = movieRepository.findAllByCharacterId(id).stream().collect(Collectors.toSet());
+        ch.setMovies(movies);
+        System.out.println("CHARACTER MOVIES: " + ch.getMovies());
+        return ch;
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.example.ea_java_3.http.controller;
 import com.example.ea_java_3.domain.character.dto.CharacterDTO;
 import com.example.ea_java_3.domain.character.dto.CharacterMapper;
 import com.example.ea_java_3.domain.franchise.dto.FranchiseMapper;
+import com.example.ea_java_3.domain.franchise.model.Franchise;
 import com.example.ea_java_3.domain.franchise.service.FranchiseService;
 import com.example.ea_java_3.domain.franchise.dto.FranchiseDTO;
 import com.example.ea_java_3.domain.movie.dto.MovieDTO;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -148,5 +150,11 @@ public class FranchiseController {
     public ResponseEntity<Integer> delete(@PathVariable int id) {
         service.deleteById(id);
         return ResponseEntity.ok().body(id);
+    }
+
+    @PutMapping("{id}/movies")
+    public ResponseEntity<FranchiseDTO> updateFranchiseMovies(@RequestBody Set<Integer> movieIds, @PathVariable int id) {
+        Franchise franchise = service.replaceMovies(id, movieIds);
+        return ResponseEntity.ok().body(mapper.toFranchiseDto(franchise));
     }
 }

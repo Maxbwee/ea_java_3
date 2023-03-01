@@ -46,13 +46,10 @@ public class CharacterController {
             )
     })
     public ResponseEntity<CharacterDTO> getById(@PathVariable int id) {
-        CharacterDTO character = mapper.toCharacterDto(
-                service.getById(id)
-        );
-        return ResponseEntity.ok(character);
+        return ResponseEntity.ok().body(mapper.toCharacterDto(service.getById(id)));
     }
 
-    @GetMapping("/characters")
+    @GetMapping("/")
     @Operation(summary = "Get all characters")
     @ApiResponses(
             value =  {
@@ -78,9 +75,9 @@ public class CharacterController {
             )
         }
     )
-    public ResponseEntity getAll() {
+    public ResponseEntity<List<CharacterDTO>> getAll() {
         List<CharacterDTO> characters = service.getAll().stream().map(mapper::toCharacterDto).toList();
-        return ResponseEntity.ok(characters.toString());
+        return ResponseEntity.ok(characters);
     }
 
     @PostMapping("/")
@@ -109,11 +106,10 @@ public class CharacterController {
                 content = @Content)
     })
     public ResponseEntity<CharacterDTO> update(@RequestBody CharacterDTO characterDTO, @PathVariable int id) {
-        if( id != characterDTO.getId()) {
+        if(id != characterDTO.getId()) {
             return ResponseEntity.badRequest().build();
         }
 
-        ;
         return ResponseEntity.ok().body(mapper.toCharacterDto(service.update(characterDTO)));
     }
 

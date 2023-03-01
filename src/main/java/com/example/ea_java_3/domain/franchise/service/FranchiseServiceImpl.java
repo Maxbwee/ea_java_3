@@ -9,9 +9,12 @@ import com.example.ea_java_3.domain.franchise.repository.FranchiseRepository;
 import com.example.ea_java_3.domain.movie.model.Movie;
 import com.example.ea_java_3.domain.movie.repository.MovieRepository;
 import com.example.ea_java_3.exceptions.FranchiseNotFoundException;
+import com.example.ea_java_3.exceptions.MovieNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class FranchiseServiceImpl implements FranchiseService {
@@ -66,6 +69,18 @@ public class FranchiseServiceImpl implements FranchiseService {
 
     @Override
     public Franchise update(FranchiseDTO dto) {
+        if (franchiseRepository.findById(dto.getId()).isEmpty()) {
+            throw new FranchiseNotFoundException(dto.getId());
+        }
+
         return franchiseRepository.save(mapper.toFranchise(dto));
+    }
+
+    @Override
+    public Franchise replaceMovies(int franchiseId, Set<Integer> movieIds) {
+        Franchise franchise = this.getById(franchiseId);
+        Set<Movie> movies = movieIds.stream().map(movId -> movieRepository.findById(movId).orElseThrow(() -> new MovieNotFoundException(movId))).collect(Collectors.toSet());
+        franchise.setMovies(movies);
+        return franchiseRepository.save(franchise);
     }
 }

@@ -6,10 +6,14 @@ import com.example.ea_java_3.domain.movie.dto.MovieDTO;
 import com.example.ea_java_3.domain.movie.dto.MovieMapper;
 import com.example.ea_java_3.domain.movie.model.Movie;
 import com.example.ea_java_3.domain.movie.repository.MovieRepository;
+import com.example.ea_java_3.exceptions.CharacterNotFoundException;
 import com.example.ea_java_3.exceptions.MovieNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class MovieServiceImpl implements MovieService {
@@ -48,6 +52,14 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public Movie update(MovieDTO dto) {
         return movieRepo.save(mapper.toMovie(dto));
+    }
+
+    @Override
+    public Movie replaceCharacters(int movieId, Set<Integer> characterIds) {
+        Movie movie = this.getById(movieId);
+        Set<Character> chars = characterIds.stream().map(charId -> characterRepository.findById(charId).orElseThrow(() -> new CharacterNotFoundException(charId))).collect(Collectors.toSet());
+        movie.setCharacters(chars);
+        return movieRepo.save(movie);
     }
 
     @Override
