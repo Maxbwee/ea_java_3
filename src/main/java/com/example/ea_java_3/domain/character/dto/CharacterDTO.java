@@ -1,7 +1,10 @@
-package com.example.ea_java_3.domain.character.model;
+package com.example.ea_java_3.domain.character.dto;
+
+import lombok.Data;
 
 import java.util.Set;
 
+@Data
 public class CharacterDTO {
     private int id;
     private String name;

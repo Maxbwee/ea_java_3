@@ -2,11 +2,15 @@ package com.example.ea_java_3.domain.franchise.model;
 
 import com.example.ea_java_3.domain.movie.model.Movie;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Set;
 
 
 @Entity
+@Getter
+@Setter
 public class Franchise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,16 +22,4 @@ public class Franchise {
 
     @OneToMany(mappedBy = "franchise")
     private Set<Movie> movies;
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Set<Movie> getMovies() {
-        return movies;
-    }
 }

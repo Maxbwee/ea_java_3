@@ -6,11 +6,11 @@ import java.util.Optional;
 public interface CrudService<T, U> {
     T create(U dto);
 
-    Optional<T> getById(int id);
+    T getById(int id);
 
     List<T> getAll();
 
-    T deleteById(int id);
+    void deleteById(int id);
 
     T update(U dto);
 }
