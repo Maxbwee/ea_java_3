@@ -18,5 +18,7 @@ public abstract class FranchiseMapper extends BaseMapper {
 
     @Mapping(source = "movieIds", target = "movies", qualifiedByName = "movieIdsToMovies")
     public abstract Franchise toFranchise(FranchiseDTO dto);
+
+    public abstract Franchise toFranchise(FranchisePostDTO dto);
 }
 

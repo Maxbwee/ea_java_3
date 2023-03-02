@@ -20,4 +20,5 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
             "LEFT JOIN character_movie ON character_movie.movie_id=movie.id " +
             "WHERE character_id=?", nativeQuery = true)
     List<Movie> findAllByCharacterId(int id);
+
 }

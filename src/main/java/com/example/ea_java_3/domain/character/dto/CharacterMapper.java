@@ -26,6 +26,8 @@ public abstract class CharacterMapper {
     @Mapping(target = "movies", source="movieIds", qualifiedByName = "movieIdsToMovies")
     public abstract Character toCharacter(CharacterDTO characterDTO);
 
+    public abstract Character toCharacter(CharacterPostDTO characterPostDTO);
+
     @Named("movieIdsToMovies")
     public Set<Movie> movieIdsToMovies(Set<Integer> ids) {
         System.out.println("AAAAAA" + ids);

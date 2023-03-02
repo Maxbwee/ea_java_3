@@ -6,6 +6,7 @@ import com.example.ea_java_3.domain.character.dto.CharacterMapper;
 import com.example.ea_java_3.domain.character.service.CharacterService;
 import com.example.ea_java_3.domain.movie.dto.MovieDTO;
 import com.example.ea_java_3.domain.movie.dto.MovieMapper;
+import com.example.ea_java_3.domain.movie.dto.MoviePostDTO;
 import com.example.ea_java_3.domain.movie.model.Movie;
 import com.example.ea_java_3.domain.movie.service.MovieService;
 import com.example.ea_java_3.exceptions.ApiErrorResponse;
@@ -100,24 +101,30 @@ public class MovieController {
     }
 
     @PutMapping("{id}/characters")
+    @Operation(summary = "Update the characters in the movie.")
     public ResponseEntity<MovieDTO> updateMovieCharacters(@RequestBody Set<Integer> characterIds, @PathVariable int id) {
         Movie movie = movieService.replaceCharacters(id,characterIds);
         return ResponseEntity.ok().body(movieMapper.toMovieDto(movie));
     }
 
     @PostMapping("/")
-    public ResponseEntity<MovieDTO> create(@RequestBody MovieDTO body) {
+    @Operation(summary = "Create a new movie.")
+    public ResponseEntity<MovieDTO> create(@RequestBody MoviePostDTO body) {
         Movie movie = movieService.create(body);
         URI location = URI.create("movie/" + movie.getId());
         return ResponseEntity.created(location).body(movieMapper.toMovieDto(movie));
     }
 
-    @PutMapping("/")
-    public ResponseEntity<MovieDTO> update(@RequestBody MovieDTO body) {
-        return ResponseEntity.ok().body(movieMapper.toMovieDto(movieService.update(body)));
+
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Update a movie.")
+    public ResponseEntity<MovieDTO> update(@RequestBody MoviePostDTO body, @PathVariable int id) {
+        return ResponseEntity.ok().body(movieMapper.toMovieDto(movieService.update(id,body)));
     }
 
     @DeleteMapping("{id}")
+    @Operation(summary = "Delete a movie by id.")
     public ResponseEntity<String> delete(@PathVariable int id) {
         movieService.deleteById(id);
         return ResponseEntity.ok().body("Deleted.");

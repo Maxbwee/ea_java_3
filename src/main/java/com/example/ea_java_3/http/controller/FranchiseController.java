@@ -3,6 +3,7 @@ package com.example.ea_java_3.http.controller;
 import com.example.ea_java_3.domain.character.dto.CharacterDTO;
 import com.example.ea_java_3.domain.character.dto.CharacterMapper;
 import com.example.ea_java_3.domain.franchise.dto.FranchiseMapper;
+import com.example.ea_java_3.domain.franchise.dto.FranchisePostDTO;
 import com.example.ea_java_3.domain.franchise.model.Franchise;
 import com.example.ea_java_3.domain.franchise.service.FranchiseService;
 import com.example.ea_java_3.domain.franchise.dto.FranchiseDTO;
@@ -114,11 +115,11 @@ public class FranchiseController {
             @ApiResponse(responseCode = "200",
                     description = "Success",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = FranchiseDTO.class)
+                            schema = @Schema(implementation = FranchisePostDTO.class)
                     )}
             )
     })
-    public ResponseEntity<FranchiseDTO> create(@RequestBody FranchiseDTO body) {
+    public ResponseEntity<FranchiseDTO> create(@RequestBody FranchisePostDTO body) {
         return ResponseEntity.created(URI.create("TODO")).body(mapper.toFranchiseDto(service.create(body)));
     }
 
@@ -126,15 +127,11 @@ public class FranchiseController {
     @Operation(summary = "Update an existing franchise")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Success",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = FranchiseDTO.class)
-                    )}
+                    description = "Success"
             )
     })
-    public ResponseEntity<FranchiseDTO> update(@RequestBody FranchiseDTO body, @PathVariable int id) {
-        body.setId(id);
-        return ResponseEntity.ok().body(mapper.toFranchiseDto(service.update(body)));
+    public ResponseEntity<FranchiseDTO> update(@RequestBody FranchisePostDTO body, @PathVariable int id) {
+        return ResponseEntity.ok().body(mapper.toFranchiseDto(service.update(id,body)));
     }
 
     @DeleteMapping("/{id}")
@@ -153,6 +150,7 @@ public class FranchiseController {
     }
 
     @PutMapping("{id}/movies")
+    @Operation(summary = "Update the movies belonging to a franchise by providing the movie ids.")
     public ResponseEntity<FranchiseDTO> updateFranchiseMovies(@RequestBody Set<Integer> movieIds, @PathVariable int id) {
         Franchise franchise = service.replaceMovies(id, movieIds);
         return ResponseEntity.ok().body(mapper.toFranchiseDto(franchise));

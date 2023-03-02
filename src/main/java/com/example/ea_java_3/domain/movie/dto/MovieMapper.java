@@ -30,6 +30,8 @@ public abstract class MovieMapper  {
     @Mapping(target = "characters", source = "characterIds", qualifiedByName = "characterIdsToCharacters")
     public abstract Movie toMovie(MovieDTO movieDto);
 
+    @Mapping(target = "franchise", source ="franchiseId", qualifiedByName = "franchiseIdToFranchise")
+    public abstract Movie toMovie(MoviePostDTO dto);
 
     @Named("franchiseIdToFranchise")
     public Franchise franchiseIdToFranchise(Integer id) {
