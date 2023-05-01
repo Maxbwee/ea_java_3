@@ -1,7 +1,7 @@
 # ea_java_3
 The application was created by Max Bowen and Leevi Limnell.
 
-This project was created for the Norofff backend course. The project took roughly 30 hours to complete.
+The project took roughly 30 hours to complete.
 
 ## Functionality
 
